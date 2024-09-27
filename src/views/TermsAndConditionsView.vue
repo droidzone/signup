@@ -223,8 +223,12 @@
 
             <h3>9. Amendments</h3>
             <p>
-              No amendment or modification of this Agreement shall be valid or binding unless made
-              in writing and signed by both parties.
+              The Agreement may at any time be amended, revised or terminated by the Discloser without prior intimation.
+            </p>
+
+            <h3>10. Version</h3>
+            <p>
+              Version: 1.0 ({{ currentDate }})
             </p>
           </div>
           <div class="form-check mb-3">
