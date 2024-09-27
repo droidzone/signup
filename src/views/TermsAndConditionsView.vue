@@ -5,6 +5,7 @@
       <div class="col-md-8">
         <div class="p-4 border rounded shadow-sm">
           <h2 class="mb-4">MyOPIP Clinic Management Software NDA</h2>
+          <button @click="goBack" class="btn btn-secondary mb-3">Back to Form</button>
           <div class="terms-content mb-4" style="max-height: 400px; overflow-y: auto;">
             <p>This Non-Disclosure Agreement (the "Agreement") is entered into on {{ currentDate }} between:</p>
             <p><strong>{{ companyName }}</strong>, the owner of MyOPIP clinic management software ("Discloser")</p>
@@ -102,12 +103,18 @@ export default {
     }
   },
   mounted() {
-    const formData = JSON.parse(localStorage.getItem('signupFormData'))
-    if (formData && formData.fullName) {
-      this.recipientName = formData.fullName
-    }
+    this.loadFormData()
   },
   methods: {
+    loadFormData() {
+      const formData = JSON.parse(localStorage.getItem('signupFormData'))
+      if (formData && formData.fullName) {
+        this.recipientName = formData.fullName
+      }
+    },
+    goBack() {
+      this.$router.push('/')
+    },
     submitForm() {
       if (this.accepted) {
         // Retrieve form data from local storage
