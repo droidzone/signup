@@ -31,7 +31,7 @@
               required
             />
           </div>
-          <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+          <button type="button" class="btn btn-primary w-100" @click="proceedToTerms">Proceed</button>
         </form>
       </div>
     </div>
@@ -50,15 +50,19 @@ export default {
     }
   },
   methods: {
-    submitForm() {
-      // Handle form submission here
-      console.log('Form submitted', {
+    proceedToTerms() {
+      // Store form data in local storage or Vuex store
+      const formData = {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
         password: this.password,
         dateOfBirth: this.dateOfBirth
-      })
+      }
+      localStorage.setItem('signupFormData', JSON.stringify(formData))
+      
+      // Navigate to terms and conditions page
+      this.$router.push('/terms-and-conditions')
     }
   }
 }
