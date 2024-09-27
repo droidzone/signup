@@ -1,10 +1,10 @@
 <template>
   <div class="container mt-5">
-    <h1 class="text-center mb-4">Non-Disclosure Agreement</h1>
+    <h1 class="text-center mb-4">Non-Disclosure and Non-Compete Agreement</h1>
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="p-4 border rounded shadow-sm">
-          <h2 class="mb-4">MyOPIP Clinic Management Software NDA</h2>
+          <h2 class="mb-4">MyOPIP Clinic Management Software NDA and Non-Compete</h2>
           <div class="terms-content mb-4" style="max-height: 400px; overflow-y: auto">
             <p>
               This Non-Disclosure Agreement (the "Agreement") is entered into on
