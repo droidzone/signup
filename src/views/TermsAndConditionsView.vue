@@ -22,8 +22,9 @@
             <h3>1. Purpose</h3>
             <p>
               The purpose of this Agreement is to protect the confidential and proprietary
-              information of the Discloser in relation to the trial access of MyOPIP clinic
-              management software (the "Software") provided to the Recipient for testing purposes.
+              information of the Discloser in relation to the trial access of MyOPIP Clinic Management Software,
+              EazyEMR, or other present or future derivatives of the software (collectively referred to as the "Software")
+              provided to the Recipient for testing purposes.
             </p>
 
             <h3>2. Confidential Information</h3>
