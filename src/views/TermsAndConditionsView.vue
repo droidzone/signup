@@ -231,15 +231,27 @@
               Version: 1.0 ({{ currentDate }})
             </p>
           </div>
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" v-model="accepted" id="acceptTerms" />
-            <label class="form-check-label" for="acceptTerms">
-              I have read and agree to the Non-Disclosure Agreement
-            </label>
+          <div class="mb-3">
+            <h3>11. Digital Signature</h3>
+            <p>
+              By typing your full name below and clicking "Accept and Sign Up", you acknowledge that you have read, 
+              understood, and agree to be bound by the terms of this Non-Disclosure and Non-Compete Agreement. 
+              This digital signature shall have the same legal effect as a handwritten signature.
+            </p>
+            <div class="form-group mb-3">
+              <label for="digitalSignature" class="form-label">Full Name (Digital Signature):</label>
+              <input type="text" class="form-control" id="digitalSignature" v-model="digitalSignature" required />
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" v-model="accepted" id="acceptTerms" />
+              <label class="form-check-label" for="acceptTerms">
+                I have read and agree to the Non-Disclosure and Non-Compete Agreement
+              </label>
+            </div>
           </div>
           <div class="d-flex justify-content-between">
             <button @click="goBack" class="btn btn-secondary">Back to Form</button>
-            <button @click="submitForm" class="btn btn-primary" :disabled="!accepted">
+            <button @click="submitForm" class="btn btn-primary" :disabled="!accepted || !digitalSignature">
               Accept and Sign Up
             </button>
           </div>
@@ -258,6 +270,7 @@ const router = useRouter()
 const formStore = useFormStore()
 
 const accepted = ref(false)
+const digitalSignature = ref('')
 const currentDate = new Date().toISOString().split('T')[0]
 const companyName = 'Geekmaze Software Pvt Ltd'
 const recipientName = ref('')
@@ -273,15 +286,16 @@ const goBack = () => {
 }
 
 const submitForm = () => {
-  if (accepted.value) {
+  if (accepted.value && digitalSignature.value) {
     const formData = {
       ...formStore.$state,
       ndaAccepted: true,
-      ndaAcceptanceDate: currentDate
+      ndaAcceptanceDate: currentDate,
+      digitalSignature: digitalSignature.value
     }
 
     // Handle form submission here
-    console.log('Form submitted with accepted NDA', formData)
+    console.log('Form submitted with accepted NDA and digital signature', formData)
 
     // Clear form store
     formStore.clearFormData()
