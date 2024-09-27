@@ -30,7 +30,9 @@
             <p>
               "Confidential Information" includes, but is not limited to, the Software, its
               features, functionality, user interface, underlying code, algorithms, and any related
-              documentation or materials provided by the Discloser.
+              documentation or materials provided by the Discloser. It also includes any information
+              obtained by the Recipient from the use of the software, with or without the Discloser's
+              explicit consent.
             </p>
 
             <h3>3. Declarations and Obligations of the Recipient</h3>
