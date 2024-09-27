@@ -21,6 +21,11 @@ const router = createRouter({
       path: '/terms-and-conditions',
       name: 'termsAndConditions',
       component: () => import('../views/TermsAndConditionsView.vue')
+    },
+    {
+      path: '/signup-success',
+      name: 'signupSuccess',
+      component: () => import('../views/SignupSuccessView.vue')
     }
   ]
 })

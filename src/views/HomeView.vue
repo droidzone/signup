@@ -31,7 +31,7 @@
               required
             />
           </div>
-          <button type="button" class="btn btn-primary w-100" @click="proceedToTerms">Proceed</button>
+          <button type="button" class="btn btn-primary w-100" @click="proceedToTerms">Proceed to Terms</button>
         </form>
       </div>
     </div>
