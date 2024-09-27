@@ -132,6 +132,13 @@
               Software and comply with all obligations regarding the return or destruction of
               Confidential Information.
             </p>
+            <p>
+              4.3 It is explicitly understood and agreed that the removal of access to the Software
+              does not constitute termination of this Agreement. This Agreement shall continue to
+              prevail in full force and effect until it is explicitly terminated by the Discloser
+              through written notice, regardless of whether the Recipient has access to the Software
+              or not.
+            </p>
 
             <h3>5. Remedies</h3>
             <p>
