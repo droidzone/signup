@@ -6,11 +6,25 @@
         <form @submit.prevent="submitAdditionalInfo" class="p-4 border rounded shadow-sm">
           <div class="mb-3">
             <label for="preferredUsername" class="form-label">Preferred Username</label>
-            <input type="text" class="form-control" id="preferredUsername" v-model="preferredUsername" required />
+            <input
+              type="text"
+              class="form-control"
+              id="preferredUsername"
+              v-model="preferredUsername"
+              required
+            />
           </div>
           <div class="mb-3">
-            <label for="mobileNumber" class="form-label">Mobile Number (with full country code)</label>
-            <input type="tel" class="form-control" id="mobileNumber" v-model="mobileNumber" required />
+            <label for="mobileNumber" class="form-label"
+              >Mobile Number (with full country code)</label
+            >
+            <input
+              type="tel"
+              class="form-control"
+              id="mobileNumber"
+              v-model="mobileNumber"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="module" class="form-label">Module Required</label>
@@ -34,10 +48,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFormStore } from '../stores/formStore'
 import axios from 'axios'
+import * as constants from '@/constants.js'
 
 const router = useRouter()
 const formStore = useFormStore()
@@ -47,6 +62,26 @@ const mobileNumber = ref('')
 const module = ref('')
 const error = ref('')
 const isLoading = ref(false)
+
+// Function to get CSRF token from cookies
+const getCSRFToken = () => {
+  const name = 'csrftoken='
+  const decodedCookie = decodeURIComponent(document.cookie)
+  const cookieArray = decodedCookie.split(';')
+  for (let i = 0; i < cookieArray.length; i++) {
+    let cookie = cookieArray[i].trim()
+    if (cookie.indexOf(name) === 0) {
+      return cookie.substring(name.length, cookie.length)
+    }
+  }
+  return null
+}
+
+// Set up axios to include CSRF token in all requests
+onMounted(() => {
+  axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken()
+  axios.defaults.withCredentials = true
+})
 
 const submitAdditionalInfo = async () => {
   isLoading.value = true
@@ -58,11 +93,11 @@ const submitAdditionalInfo = async () => {
   formStore.setAdditionalInfo(additionalInfo)
 
   try {
-    const response = await axios.post('https://api.example.com/signup', {
+    const response = await axios.post(constants.API_SUBMIT, {
       ...formStore.$state,
       ...additionalInfo
     })
-    
+
     if (response.status === 200) {
       router.push('/signup-success')
     } else {
