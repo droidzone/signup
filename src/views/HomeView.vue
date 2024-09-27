@@ -37,6 +37,10 @@
               <option value="others">Others</option>
             </select>
           </div>
+          <div v-if="role === 'others'" class="mb-3">
+            <label for="otherRole" class="form-label">Please specify your role</label>
+            <input type="text" class="form-control" id="otherRole" v-model="otherRole" required />
+          </div>
           <button type="submit" class="btn btn-primary w-100">Proceed to Terms</button>
         </form>
       </div>
@@ -51,7 +55,8 @@ export default {
       fullName: '',
       email: '',
       address: '',
-      role: ''
+      role: '',
+      otherRole: ''
     }
   },
   methods: {
@@ -61,7 +66,7 @@ export default {
         fullName: this.fullName,
         email: this.email,
         address: this.address,
-        role: this.role
+        role: this.role === 'others' ? this.otherRole : this.role
       }
       localStorage.setItem('signupFormData', JSON.stringify(formData))
       
