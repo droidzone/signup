@@ -48,31 +48,37 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      fullName: '',
-      email: '',
-      address: '',
-      role: '',
-      otherRole: ''
-    }
-  },
-  methods: {
-    proceedToTerms() {
-      // Store form data in local storage or Vuex store
-      const formData = {
-        fullName: this.fullName,
-        email: this.email,
-        address: this.address,
-        role: this.role === 'others' ? this.otherRole : this.role
-      }
-      localStorage.setItem('signupFormData', JSON.stringify(formData))
-      
-      // Navigate to terms and conditions page
-      this.$router.push('/terms-and-conditions')
-    }
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useFormStore } from '../stores/formStore'
+
+const router = useRouter()
+const formStore = useFormStore()
+
+const fullName = ref('')
+const email = ref('')
+const address = ref('')
+const role = ref('')
+const otherRole = ref('')
+
+onMounted(() => {
+  fullName.value = formStore.fullName
+  email.value = formStore.email
+  address.value = formStore.address
+  role.value = formStore.role
+  otherRole.value = formStore.otherRole
+})
+
+const proceedToTerms = () => {
+  const formData = {
+    fullName: fullName.value,
+    email: email.value,
+    address: address.value,
+    role: role.value === 'others' ? otherRole.value : role.value,
+    otherRole: otherRole.value
   }
+  formStore.setFormData(formData)
+  router.push('/terms-and-conditions')
 }
 </script>

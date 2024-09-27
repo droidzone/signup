@@ -92,48 +92,43 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      accepted: false,
-      currentDate: new Date().toISOString().split('T')[0],
-      companyName: 'Geekmaze Software Pvt Ltd',
-      recipientName: ''
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useFormStore } from '../stores/formStore'
+
+const router = useRouter()
+const formStore = useFormStore()
+
+const accepted = ref(false)
+const currentDate = new Date().toISOString().split('T')[0]
+const companyName = 'Geekmaze Software Pvt Ltd'
+const recipientName = ref('')
+
+onMounted(() => {
+  recipientName.value = formStore.fullName
+})
+
+const goBack = () => {
+  router.push('/')
+}
+
+const submitForm = () => {
+  if (accepted.value) {
+    const formData = {
+      ...formStore.$state,
+      ndaAccepted: true,
+      ndaAcceptanceDate: currentDate
     }
-  },
-  mounted() {
-    this.loadFormData()
-  },
-  methods: {
-    loadFormData() {
-      const formData = JSON.parse(localStorage.getItem('signupFormData'))
-      if (formData && formData.fullName) {
-        this.recipientName = formData.fullName
-      }
-    },
-    goBack() {
-      this.$router.push('/')
-    },
-    submitForm() {
-      if (this.accepted) {
-        // Retrieve form data from local storage
-        const formData = JSON.parse(localStorage.getItem('signupFormData'))
-        
-        // Add NDA acceptance details
-        formData.ndaAccepted = true
-        formData.ndaAcceptanceDate = this.currentDate
-        
-        // Handle form submission here
-        console.log('Form submitted with accepted NDA', formData)
-        
-        // Clear local storage
-        localStorage.removeItem('signupFormData')
-        
-        // Redirect to a success page or login page
-        this.$router.push('/signup-success')
-      }
-    }
+    
+    // Handle form submission here
+    console.log('Form submitted with accepted NDA', formData)
+    
+    // Clear form store
+    formStore.clearFormData()
+    
+    // Redirect to a success page or login page
+    router.push('/signup-success')
   }
 }
 </script>
