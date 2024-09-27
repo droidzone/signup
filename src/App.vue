@@ -3,7 +3,39 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <RouterView />
+  <div class="app-container">
+    <header class="bg-primary text-white py-3">
+      <div class="container">
+        <h1 class="mb-0">Professional Vue App</h1>
+      </div>
+    </header>
+    <nav class="bg-light py-2">
+      <div class="container">
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="container py-4">
+      <RouterView />
+    </main>
+    <footer class="bg-dark text-white py-3 mt-4">
+      <div class="container text-center">
+        <p class="mb-0">&copy; 2023 Professional Vue App. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+</style>
