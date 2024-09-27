@@ -5,7 +5,8 @@ const formData = reactive({
   fullName: '',
   email: '',
   address: '',
-  role: ''
+  role: '',
+  trialReason: ''
 })
 
 const roles = [
@@ -22,6 +23,15 @@ const roles = [
   'Other Software Collaborator'
 ]
 
+const trialReasons = [
+  'To see whether this software can fit my needs',
+  'To market the software',
+  'To build a competing product or software',
+  'To evaluate for potential partnership',
+  'To learn about new technologies',
+  'Other'
+]
+
 const errors = ref({})
 
 const validateForm = () => {
@@ -30,6 +40,7 @@ const validateForm = () => {
   if (!formData.email) errors.value.email = 'Email is required'
   if (!formData.address) errors.value.address = 'Address is required'
   if (!formData.role) errors.value.role = 'Role is required'
+  if (!formData.trialReason) errors.value.trialReason = 'Trial reason is required'
   return Object.keys(errors.value).length === 0
 }
 
@@ -80,6 +91,14 @@ const submitForm = () => {
             <option v-for="role in roles" :key="role" :value="role">{{ role }}</option>
           </select>
           <div class="invalid-feedback" v-if="errors.role">{{ errors.role }}</div>
+        </div>
+        <div class="mb-3">
+          <label for="trialReason" class="form-label">Why do you want a trial access?</label>
+          <select class="form-select" id="trialReason" v-model="formData.trialReason" required>
+            <option value="" disabled selected>Choose your reason</option>
+            <option v-for="reason in trialReasons" :key="reason" :value="reason">{{ reason }}</option>
+          </select>
+          <div class="invalid-feedback" v-if="errors.trialReason">{{ errors.trialReason }}</div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
