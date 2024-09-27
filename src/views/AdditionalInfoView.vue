@@ -35,9 +35,12 @@
               <option value="accountant">Accountant</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary w-100" :disabled="isLoading">
-            {{ isLoading ? 'Signing Up...' : 'Complete Sign Up' }}
-          </button>
+          <div class="d-flex justify-content-between">
+            <button @click="goBack" class="btn btn-secondary">Back</button>
+            <button type="submit" class="btn btn-primary" :disabled="isLoading">
+              {{ isLoading ? 'Signing Up...' : 'Complete Sign Up' }}
+            </button>
+          </div>
         </form>
         <div v-if="error" class="alert alert-danger mt-3">
           {{ error }}
@@ -56,6 +59,10 @@ import * as constants from '@/constants.js'
 
 const router = useRouter()
 const formStore = useFormStore()
+
+const goBack = () => {
+  router.push('/terms-and-conditions')
+}
 
 const preferredUsername = ref('')
 const mobileNumber = ref('')
