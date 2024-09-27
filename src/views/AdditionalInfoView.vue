@@ -21,8 +21,13 @@
               <option value="accountant">Accountant</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary w-100">Complete Sign Up</button>
+          <button type="submit" class="btn btn-primary w-100" :disabled="isLoading">
+            {{ isLoading ? 'Signing Up...' : 'Complete Sign Up' }}
+          </button>
         </form>
+        <div v-if="error" class="alert alert-danger mt-3">
+          {{ error }}
+        </div>
       </div>
     </div>
   </div>
@@ -32,6 +37,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFormStore } from '../stores/formStore'
+import axios from 'axios'
 
 const router = useRouter()
 const formStore = useFormStore()
@@ -39,14 +45,34 @@ const formStore = useFormStore()
 const preferredUsername = ref('')
 const mobileNumber = ref('')
 const module = ref('')
+const error = ref('')
+const isLoading = ref(false)
 
-const submitAdditionalInfo = () => {
+const submitAdditionalInfo = async () => {
+  isLoading.value = true
   const additionalInfo = {
     preferredUsername: preferredUsername.value,
     mobileNumber: mobileNumber.value,
     module: module.value
   }
   formStore.setAdditionalInfo(additionalInfo)
-  router.push('/signup-success')
+
+  try {
+    const response = await axios.post('https://api.example.com/signup', {
+      ...formStore.$state,
+      ...additionalInfo
+    })
+    
+    if (response.status === 200) {
+      router.push('/signup-success')
+    } else {
+      error.value = 'An error occurred during signup. Please try again.'
+    }
+  } catch (err) {
+    console.error('Error during signup:', err)
+    error.value = 'An error occurred during signup. Please try again.'
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
