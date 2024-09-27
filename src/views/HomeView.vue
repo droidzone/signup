@@ -24,9 +24,17 @@
               <option value="doctor">Doctor</option>
               <option value="nurse">Nurse</option>
               <option value="pharmacist">Pharmacist</option>
+              <option value="physiotherapist">Physiotherapist</option>
+              <option value="ophthalmologist">Ophthalmologist</option>
+              <option value="neurologist">Neurologist</option>
+              <option value="neurosurgeon">Neurosurgeon</option>
+              <option value="other_clinical_doctor">Other clinical doctor</option>
+              <option value="other_paramedical">Other paramedical</option>
+              <option value="dentist">Dentist</option>
               <option value="developer">Developer</option>
               <option value="marketing">Marketing Agency</option>
               <option value="collaborator">Other Software Collaborator</option>
+              <option value="others">Others</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary w-100">Proceed to Terms</button>
