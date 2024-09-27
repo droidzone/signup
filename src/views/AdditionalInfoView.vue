@@ -93,6 +93,7 @@ const submitAdditionalInfo = async () => {
   formStore.setAdditionalInfo(additionalInfo)
 
   try {
+    console.log(`Posting to ${constants.API_SUBMIT}`)
     const response = await axios.post(constants.API_SUBMIT, {
       ...formStore.$state,
       ...additionalInfo
