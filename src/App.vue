@@ -6,7 +6,7 @@ import { RouterView } from 'vue-router'
   <div class="app-container">
     <header class="bg-primary text-white py-3">
       <div class="container">
-        <h1 class="mb-0">Professional Vue App</h1>
+        <h1 class="mb-0">Sign up for a Trial Access to the software</h1>
       </div>
     </header>
     <nav class="bg-light py-2">
@@ -22,7 +22,7 @@ import { RouterView } from 'vue-router'
     </main>
     <footer class="bg-dark text-white py-3 mt-4">
       <div class="container text-center">
-        <p class="mb-0">&copy; 2023 Professional Vue App. All rights reserved.</p>
+        <p class="mb-0">&copy; 2018-28 Geekmaze Software Pvt Ltd. All rights reserved.</p>
       </div>
     </footer>
   </div>
