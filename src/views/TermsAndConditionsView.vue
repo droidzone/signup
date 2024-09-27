@@ -75,6 +75,7 @@
                 new software or enhancing existing software;
               </li>
               <li>Not share access to the Software with any third party;</li>
+              <li>Not share the user credentials with any third party individual or company;</li>
               <li>
                 Not make, keep, or use any screenshots, photos, screen captures, or videos of the
                 Software beyond the testing period;

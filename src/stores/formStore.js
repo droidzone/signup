@@ -6,7 +6,8 @@ export const useFormStore = defineStore('form', {
     email: '',
     address: '',
     role: '',
-    otherRole: ''
+    otherRole: '',
+    affiliations: ''
   }),
   actions: {
     setFormData(data) {
@@ -15,6 +16,7 @@ export const useFormStore = defineStore('form', {
       this.address = data.address
       this.role = data.role
       this.otherRole = data.otherRole
+      this.affiliations = data.affiliations
     },
     clearFormData() {
       this.fullName = ''
@@ -22,6 +24,7 @@ export const useFormStore = defineStore('form', {
       this.address = ''
       this.role = ''
       this.otherRole = ''
+      this.affiliations = ''
     }
   }
 })

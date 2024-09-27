@@ -41,6 +41,10 @@
             <label for="otherRole" class="form-label">Please specify your role</label>
             <input type="text" class="form-control" id="otherRole" v-model="otherRole" required />
           </div>
+          <div class="mb-3">
+            <label for="affiliations" class="form-label">Affiliations</label>
+            <textarea class="form-control" id="affiliations" v-model="affiliations" required placeholder="Include Companies, Startups, or other organizations where presently working, worked or collaborating with, or otherwise involved, invested, interested in"></textarea>
+          </div>
           <button type="submit" class="btn btn-primary w-100">Proceed to Terms</button>
         </form>
       </div>
@@ -61,6 +65,7 @@ const email = ref('')
 const address = ref('')
 const role = ref('')
 const otherRole = ref('')
+const affiliations = ref('')
 
 onMounted(() => {
   fullName.value = formStore.fullName
@@ -68,6 +73,7 @@ onMounted(() => {
   address.value = formStore.address
   role.value = formStore.role
   otherRole.value = formStore.otherRole
+  affiliations.value = formStore.affiliations
 })
 
 const proceedToTerms = () => {
@@ -76,7 +82,8 @@ const proceedToTerms = () => {
     email: email.value,
     address: address.value,
     role: role.value === 'others' ? otherRole.value : role.value,
-    otherRole: otherRole.value
+    otherRole: otherRole.value,
+    affiliations: affiliations.value
   }
   formStore.setFormData(formData)
   router.push('/terms-and-conditions')
