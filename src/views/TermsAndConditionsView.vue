@@ -5,7 +5,6 @@
       <div class="col-md-8">
         <div class="p-4 border rounded shadow-sm">
           <h2 class="mb-4">MyOPIP Clinic Management Software NDA</h2>
-          <button @click="goBack" class="btn btn-secondary mb-3">Back to Form</button>
           <div class="terms-content mb-4" style="max-height: 400px; overflow-y: auto;">
             <p>This Non-Disclosure Agreement (the "Agreement") is entered into on {{ currentDate }} between:</p>
             <p><strong>{{ companyName }}</strong>, the owner of MyOPIP clinic management software ("Discloser")</p>
@@ -85,7 +84,10 @@
               I have read and agree to the Non-Disclosure Agreement
             </label>
           </div>
-          <button @click="submitForm" class="btn btn-primary w-100" :disabled="!accepted">Accept and Sign Up</button>
+          <div class="d-flex justify-content-between">
+            <button @click="goBack" class="btn btn-secondary">Back to Form</button>
+            <button @click="submitForm" class="btn btn-primary" :disabled="!accepted">Accept and Sign Up</button>
+          </div>
         </div>
       </div>
     </div>
