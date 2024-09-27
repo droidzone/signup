@@ -8,7 +8,7 @@
           <div class="terms-content mb-4" style="max-height: 400px; overflow-y: auto;">
             <p>This Non-Disclosure Agreement (the "Agreement") is entered into on {{ currentDate }} between:</p>
             <p><strong>{{ companyName }}</strong>, the owner of MyOPIP clinic management software ("Discloser")</p>
-            <p><strong>{{ recipientName }}</strong> ("Recipient")</p>
+            <p><strong>{{ recipientName }}</strong>, residing at {{ recipientAddress }} (Hereafter, called the "Recipient")</p>
 
             <h3>1. Purpose</h3>
             <p>The purpose of this Agreement is to protect the confidential and proprietary information of the Discloser in relation to the trial access of MyOPIP clinic management software (the "Software") provided to the Recipient for testing purposes.</p>
@@ -106,9 +106,11 @@ const accepted = ref(false)
 const currentDate = new Date().toISOString().split('T')[0]
 const companyName = 'Geekmaze Software Pvt Ltd'
 const recipientName = ref('')
+const recipientAddress = ref('')
 
 onMounted(() => {
   recipientName.value = formStore.fullName
+  recipientAddress.value = formStore.address
 })
 
 const goBack = () => {
