@@ -6,16 +6,28 @@
         <form @submit.prevent="proceedToTerms" class="p-4 border rounded shadow-sm">
           <h2 class="mb-4">Sign Up</h2>
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" v-model="username" required />
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" v-model="fullName" required />
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
             <input type="email" class="form-control" id="email" v-model="email" required />
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" v-model="password" required />
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" id="address" v-model="address" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select class="form-select" id="role" v-model="role" required>
+              <option value="">Select a role</option>
+              <option value="doctor">Doctor</option>
+              <option value="nurse">Nurse</option>
+              <option value="pharmacist">Pharmacist</option>
+              <option value="developer">Developer</option>
+              <option value="marketing">Marketing Agency</option>
+              <option value="collaborator">Other Software Collaborator</option>
+            </select>
           </div>
           <button type="submit" class="btn btn-primary w-100">Proceed to Terms</button>
         </form>
@@ -28,18 +40,20 @@
 export default {
   data() {
     return {
-      username: '',
+      fullName: '',
       email: '',
-      password: ''
+      address: '',
+      role: ''
     }
   },
   methods: {
     proceedToTerms() {
       // Store form data in local storage or Vuex store
       const formData = {
-        username: this.username,
+        fullName: this.fullName,
         email: this.email,
-        password: this.password
+        address: this.address,
+        role: this.role
       }
       localStorage.setItem('signupFormData', JSON.stringify(formData))
       
