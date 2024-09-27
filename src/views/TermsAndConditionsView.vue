@@ -30,7 +30,7 @@
             <ul>
               <li>Keep the Confidential Information strictly confidential;</li>
               <li>Use the Confidential Information solely for the purpose of testing the Software;</li>
-              <li>Not copy, reproduce, distribute, disclose, or transfer any Confidential Information to any third party;</li>
+              <li>Not copy, reproduce, distribute, disclose, or transfer any Confidential Information to any third party; Not store as screenshots, photos, printout, video, audio files, compressed files, encrypted files, or other digital, manual or other form that can be stored, or transmitted;</li>
               <li>Not reverse engineer, decompile, or disassemble the Software;</li>
               <li>Not use the Confidential Information to create any competing product or service;</li>
               <li>Not use the features or functionality of the Software as a basis for developing any new software or enhancing existing software;</li>
