@@ -297,11 +297,11 @@ const submitForm = () => {
     // Handle form submission here
     console.log('Form submitted with accepted NDA and digital signature', formData)
 
-    // Clear form store
-    formStore.clearFormData()
+    // Save form data
+    formStore.setFormData(formData)
 
-    // Redirect to a success page or login page
-    router.push('/signup-success')
+    // Redirect to additional info page
+    router.push('/additional-info')
   }
 }
 </script>

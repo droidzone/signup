@@ -7,24 +7,28 @@ export const useFormStore = defineStore('form', {
     address: '',
     role: '',
     otherRole: '',
-    affiliations: ''
+    affiliations: '',
+    ndaAccepted: false,
+    ndaAcceptanceDate: '',
+    digitalSignature: '',
+    preferredUsername: '',
+    mobileNumber: '',
+    module: ''
   }),
   actions: {
     setFormData(data) {
-      this.fullName = data.fullName
-      this.email = data.email
-      this.address = data.address
-      this.role = data.role
-      this.otherRole = data.otherRole
-      this.affiliations = data.affiliations
+      Object.assign(this, data)
+    },
+    setAdditionalInfo(data) {
+      this.preferredUsername = data.preferredUsername
+      this.mobileNumber = data.mobileNumber
+      this.module = data.module
     },
     clearFormData() {
-      this.fullName = ''
-      this.email = ''
-      this.address = ''
-      this.role = ''
-      this.otherRole = ''
-      this.affiliations = ''
+      Object.keys(this.$state).forEach(key => {
+        this[key] = ''
+      })
+      this.ndaAccepted = false
     }
   }
 })

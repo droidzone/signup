@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('../views/TermsAndConditionsView.vue')
     },
     {
+      path: '/additional-info',
+      name: 'additionalInfo',
+      component: () => import('../views/AdditionalInfoView.vue')
+    },
+    {
       path: '/signup-success',
       name: 'signupSuccess',
       component: () => import('../views/SignupSuccessView.vue')
