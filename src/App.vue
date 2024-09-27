@@ -1,5 +1,44 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { ref, reactive } from 'vue'
+
+const formData = reactive({
+  fullName: '',
+  email: '',
+  address: '',
+  role: ''
+})
+
+const roles = [
+  'Doctor',
+  'Nurse',
+  'Physiotherapist',
+  'Dentist',
+  'ENT Specialist',
+  'Neurologist',
+  'Dermatologist',
+  'Plastic Surgeon',
+  'Developer',
+  'Marketing Agency',
+  'Other Software Collaborator'
+]
+
+const errors = ref({})
+
+const validateForm = () => {
+  errors.value = {}
+  if (!formData.fullName) errors.value.fullName = 'Full name is required'
+  if (!formData.email) errors.value.email = 'Email is required'
+  if (!formData.address) errors.value.address = 'Address is required'
+  if (!formData.role) errors.value.role = 'Role is required'
+  return Object.keys(errors.value).length === 0
+}
+
+const submitForm = () => {
+  if (validateForm()) {
+    console.log('Form submitted:', formData)
+    // Here you would typically send the data to your backend
+  }
+}
 </script>
 
 <template>
@@ -18,7 +57,32 @@ import { RouterView } from 'vue-router'
       </div>
     </nav>
     <main class="container py-4">
-      <RouterView />
+      <form @submit.prevent="submitForm" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="fullName" v-model="formData.fullName" required>
+          <div class="invalid-feedback" v-if="errors.fullName">{{ errors.fullName }}</div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" v-model="formData.email" required>
+          <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}</div>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Address (as on govt ID)</label>
+          <textarea class="form-control" id="address" v-model="formData.address" required></textarea>
+          <div class="invalid-feedback" v-if="errors.address">{{ errors.address }}</div>
+        </div>
+        <div class="mb-3">
+          <label for="role" class="form-label">Role</label>
+          <select class="form-select" id="role" v-model="formData.role" required>
+            <option value="" disabled selected>Choose your role</option>
+            <option v-for="role in roles" :key="role" :value="role">{{ role }}</option>
+          </select>
+          <div class="invalid-feedback" v-if="errors.role">{{ errors.role }}</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </main>
     <footer class="bg-dark text-white py-3 mt-4">
       <div class="container text-center">
@@ -37,5 +101,9 @@ import { RouterView } from 'vue-router'
 
 main {
   flex: 1;
+}
+
+.invalid-feedback {
+  display: block;
 }
 </style>
