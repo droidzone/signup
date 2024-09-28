@@ -353,11 +353,16 @@ const generatePDF = () => {
   doc.text(`And: ${recipientName.value}`, 20, 50)
   doc.text(`Address: ${recipientAddress.value}`, 20, 60)
   
-  // Add more content as needed...
-  
+  // Add the full agreement text
   doc.setFontSize(10)
-  doc.text(`Digital Signature: ${digitalSignature.value}`, 20, 250)
-  doc.text(`Accepted on: ${formatDate(currentDate)}`, 20, 260)
+  const agreementText = document.querySelector('.terms-content').innerText
+  const splitText = doc.splitTextToSize(agreementText, 180)
+  doc.text(splitText, 20, 70)
+  
+  // Add signature and acceptance date
+  const lastY = doc.internal.getNumberOfPages() > 1 ? doc.internal.pageSize.height - 20 : 270
+  doc.text(`Digital Signature: ${digitalSignature.value}`, 20, lastY)
+  doc.text(`Accepted on: ${formatDate(currentDate)}`, 20, lastY + 10)
   
   // Save the PDF
   doc.save('NDA_Agreement.pdf')
