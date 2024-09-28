@@ -258,11 +258,18 @@
                 required
               />
             </div>
-            <div class="form-check mb-3">
+            <div class="form-check mb-3 d-flex align-items-center">
               <input class="form-check-input" type="checkbox" v-model="accepted" id="acceptTerms" />
-              <label class="form-check-label" for="acceptTerms">
+              <label class="form-check-label me-3" for="acceptTerms">
                 I have read and agree to the Non-Disclosure and Non-Compete Agreement
               </label>
+              <button
+                v-if="accepted"
+                @click="generatePDF"
+                class="btn btn-outline-primary btn-sm"
+              >
+                Download Signed Agreement
+              </button>
             </div>
           </div>
           <div class="d-flex justify-content-between">
@@ -285,6 +292,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFormStore } from '../stores/formStore'
+import { jsPDF } from 'jspdf'
 
 const router = useRouter()
 const formStore = useFormStore()
@@ -330,5 +338,28 @@ const submitForm = () => {
     // Redirect to additional info page
     router.push('/additional-info')
   }
+}
+
+const generatePDF = () => {
+  const doc = new jsPDF()
+  
+  // Add content to the PDF
+  doc.setFontSize(16)
+  doc.text('Non-Disclosure and Non-Compete Agreement', 20, 20)
+  
+  doc.setFontSize(12)
+  doc.text(`Date: ${formatDate(currentDate)}`, 20, 30)
+  doc.text(`Between: ${companyName}`, 20, 40)
+  doc.text(`And: ${recipientName.value}`, 20, 50)
+  doc.text(`Address: ${recipientAddress.value}`, 20, 60)
+  
+  // Add more content as needed...
+  
+  doc.setFontSize(10)
+  doc.text(`Digital Signature: ${digitalSignature.value}`, 20, 250)
+  doc.text(`Accepted on: ${formatDate(currentDate)}`, 20, 260)
+  
+  // Save the PDF
+  doc.save('NDA_Agreement.pdf')
 }
 </script>
