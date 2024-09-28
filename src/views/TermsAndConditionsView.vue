@@ -342,6 +342,7 @@ const submitForm = () => {
 
 const generatePDF = () => {
   const doc = new jsPDF()
+  doc.setFont('times', 'normal')
   const pageWidth = doc.internal.pageSize.width
   const pageHeight = doc.internal.pageSize.height
   const margin = 20
@@ -368,13 +369,13 @@ const generatePDF = () => {
         addPage()
       }
       doc.text(line, margin, yPosition)
-      yPosition += fontSize * 1.5
+      yPosition += fontSize * 1.2 // Reduced line spacing
     })
-    yPosition += fontSize // Add extra space after paragraph
+    yPosition += fontSize * 0.5 // Reduced space after paragraph
   }
 
   // Add content to the PDF
-  addText('Non-Disclosure and Non-Compete Agreement', 16, true)
+  addText('Non-Disclosure and Non-Compete Agreement', 14, true)
   addText(`Date: ${formatDate(currentDate)}`, 12)
   addText(`Between: ${companyName}`, 12)
   addText(`And: ${recipientName.value}`, 12)
@@ -382,7 +383,7 @@ const generatePDF = () => {
   
   // Add the full agreement text
   const agreementText = document.querySelector('.terms-content').innerText
-  addText(agreementText, 10)
+  addText(agreementText, 12)
   
   // Add signature and acceptance date
   addText(`Digital Signature: ${digitalSignature.value}`, 12)
