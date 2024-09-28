@@ -342,27 +342,51 @@ const submitForm = () => {
 
 const generatePDF = () => {
   const doc = new jsPDF()
-  
+  const pageWidth = doc.internal.pageSize.width
+  const pageHeight = doc.internal.pageSize.height
+  const margin = 20
+  let yPosition = margin
+
+  // Helper function to add a new page
+  const addPage = () => {
+    doc.addPage()
+    yPosition = margin
+  }
+
+  // Helper function to add text with automatic page breaks
+  const addText = (text, fontSize, isBold = false) => {
+    doc.setFontSize(fontSize)
+    if (isBold) {
+      doc.setFont(undefined, 'bold')
+    } else {
+      doc.setFont(undefined, 'normal')
+    }
+    const splitText = doc.splitTextToSize(text, pageWidth - 2 * margin)
+    
+    splitText.forEach(line => {
+      if (yPosition + fontSize > pageHeight - margin) {
+        addPage()
+      }
+      doc.text(line, margin, yPosition)
+      yPosition += fontSize * 1.5
+    })
+    yPosition += fontSize // Add extra space after paragraph
+  }
+
   // Add content to the PDF
-  doc.setFontSize(16)
-  doc.text('Non-Disclosure and Non-Compete Agreement', 20, 20)
-  
-  doc.setFontSize(12)
-  doc.text(`Date: ${formatDate(currentDate)}`, 20, 30)
-  doc.text(`Between: ${companyName}`, 20, 40)
-  doc.text(`And: ${recipientName.value}`, 20, 50)
-  doc.text(`Address: ${recipientAddress.value}`, 20, 60)
+  addText('Non-Disclosure and Non-Compete Agreement', 16, true)
+  addText(`Date: ${formatDate(currentDate)}`, 12)
+  addText(`Between: ${companyName}`, 12)
+  addText(`And: ${recipientName.value}`, 12)
+  addText(`Address: ${recipientAddress.value}`, 12)
   
   // Add the full agreement text
-  doc.setFontSize(10)
   const agreementText = document.querySelector('.terms-content').innerText
-  const splitText = doc.splitTextToSize(agreementText, 180)
-  doc.text(splitText, 20, 70)
+  addText(agreementText, 10)
   
   // Add signature and acceptance date
-  const lastY = doc.internal.getNumberOfPages() > 1 ? doc.internal.pageSize.height - 20 : 270
-  doc.text(`Digital Signature: ${digitalSignature.value}`, 20, lastY)
-  doc.text(`Accepted on: ${formatDate(currentDate)}`, 20, lastY + 10)
+  addText(`Digital Signature: ${digitalSignature.value}`, 12)
+  addText(`Accepted on: ${formatDate(currentDate)}`, 12)
   
   // Save the PDF
   doc.save('NDA_Agreement.pdf')
