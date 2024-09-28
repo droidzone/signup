@@ -351,23 +351,28 @@ const generatePDF = () => {
   }
 
   // Helper function to add text with automatic page breaks
-  const addText = (text, fontSize, isBold = false) => {
+  const addText = (text, fontSize, isBold = false, isBullet = false) => {
     doc.setFontSize(fontSize)
     if (isBold) {
       doc.setFont(undefined, 'bold')
     } else {
       doc.setFont(undefined, 'normal')
     }
-    const splitText = doc.splitTextToSize(text, pageWidth - 2 * margin)
+    const splitText = doc.splitTextToSize(text, pageWidth - 2 * margin - (isBullet ? 10 : 0))
 
     splitText.forEach((line) => {
       if (yPosition + fontSize > pageHeight - margin) {
         addPage()
       }
-      doc.text(line, margin, yPosition)
-      yPosition += fontSize * 1 // Reduced line spacing
+      if (isBullet) {
+        doc.circle(margin + 2, yPosition - fontSize / 3, 1, 'F')
+        doc.text(line, margin + 10, yPosition)
+      } else {
+        doc.text(line, margin, yPosition)
+      }
+      yPosition += fontSize * 1.2 // Slightly increased line spacing
     })
-    yPosition += fontSize * 0.2 // Reduced space after paragraph
+    yPosition += fontSize * 0.5 // Increased space after paragraph
   }
 
   // Add content to the PDF
@@ -379,7 +384,23 @@ const generatePDF = () => {
 
   // Add the full agreement text
   const agreementText = document.querySelector('.terms-content').innerText
-  addText(agreementText, 12)
+  const sections = agreementText.split(/(?=\d+\.\s)/)
+  sections.forEach(section => {
+    if (section.startsWith('3.2 Obligations:')) {
+      addText(section.split('\n')[0], 12, true)
+      addText('The Recipient agrees to:', 12)
+      const bullets = section.split('\n').slice(2)
+      bullets.forEach(bullet => {
+        if (bullet.trim().startsWith('Not')) {
+          addText(bullet.trim().substring(4), 12, false, true)
+        } else {
+          addText(bullet.trim(), 12, false, true)
+        }
+      })
+    } else {
+      addText(section, 12)
+    }
+  })
 
   // Add signature and acceptance date
   addText(`Digital Signature: ${digitalSignature.value}`, 12)
