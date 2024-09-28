@@ -263,11 +263,7 @@
               <label class="form-check-label me-3" for="acceptTerms">
                 I have read and agree to the Non-Disclosure and Non-Compete Agreement
               </label>
-              <button
-                v-if="accepted"
-                @click="generatePDF"
-                class="btn btn-outline-primary btn-sm"
-              >
+              <button v-if="accepted" @click="generatePDF" class="btn btn-outline-primary btn-sm">
                 Download Signed Agreement
               </button>
             </div>
@@ -363,15 +359,15 @@ const generatePDF = () => {
       doc.setFont(undefined, 'normal')
     }
     const splitText = doc.splitTextToSize(text, pageWidth - 2 * margin)
-    
-    splitText.forEach(line => {
+
+    splitText.forEach((line) => {
       if (yPosition + fontSize > pageHeight - margin) {
         addPage()
       }
       doc.text(line, margin, yPosition)
-      yPosition += fontSize * 1.2 // Reduced line spacing
+      yPosition += fontSize * 1 // Reduced line spacing
     })
-    yPosition += fontSize * 0.5 // Reduced space after paragraph
+    yPosition += fontSize * 0.2 // Reduced space after paragraph
   }
 
   // Add content to the PDF
@@ -380,15 +376,15 @@ const generatePDF = () => {
   addText(`Between: ${companyName}`, 12)
   addText(`And: ${recipientName.value}`, 12)
   addText(`Address: ${recipientAddress.value}`, 12)
-  
+
   // Add the full agreement text
   const agreementText = document.querySelector('.terms-content').innerText
   addText(agreementText, 12)
-  
+
   // Add signature and acceptance date
   addText(`Digital Signature: ${digitalSignature.value}`, 12)
   addText(`Accepted on: ${formatDate(currentDate)}`, 12)
-  
+
   // Save the PDF
   doc.save('NDA_Agreement.pdf')
 }
