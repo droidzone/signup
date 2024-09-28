@@ -8,7 +8,7 @@
           <div class="terms-content mb-4" style="max-height: 400px; overflow-y: auto">
             <p>
               This Non-Disclosure Agreement (the "Agreement") is entered into on
-              {{ currentDate }} between:
+              {{ formatDate(currentDate) }} between:
             </p>
             <p>
               <strong>{{ companyName }}</strong
@@ -236,7 +236,7 @@
             </p>
 
             <h3>10. Version</h3>
-            <p>Version: 1.0 ({{ currentDate }})</p>
+            <p>Version: 1.0 ({{ formatDate(currentDate) }})</p>
           </div>
           <div class="mb-3">
             <h3>11. Digital Signature</h3>
@@ -291,10 +291,17 @@ const formStore = useFormStore()
 
 const accepted = ref(false)
 const digitalSignature = ref('')
-const currentDate = new Date().toISOString().split('T')[0]
+const currentDate = new Date()
 const companyName = 'Geekmaze Software Pvt Ltd'
 const recipientName = ref('')
 const recipientAddress = ref('')
+
+const formatDate = (date) => {
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const year = date.getFullYear()
+  return `${day}-${month}-${year}`
+}
 
 onMounted(() => {
   recipientName.value = formStore.fullName
