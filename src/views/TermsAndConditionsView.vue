@@ -360,19 +360,21 @@ const generatePDF = () => {
     }
     const splitText = doc.splitTextToSize(text, pageWidth - 2 * margin - (isBullet ? 10 : 0))
 
-    splitText.forEach((line) => {
+    splitText.forEach((line, index) => {
       if (yPosition + fontSize > pageHeight - margin) {
         addPage()
       }
       if (isBullet) {
-        doc.circle(margin + 2, yPosition - fontSize / 3, 1, 'F')
+        doc.circle(margin + 2, yPosition + fontSize / 4, 1, 'F')
         doc.text(line, margin + 10, yPosition)
       } else {
         doc.text(line, margin, yPosition)
       }
-      yPosition += fontSize * 1.2 // Slightly increased line spacing
+      yPosition += fontSize // Remove extra line spacing
+      if (index === splitText.length - 1 && !isBullet) {
+        yPosition += fontSize * 0.2 // Add minimal space after paragraphs
+      }
     })
-    yPosition += fontSize * 0.5 // Increased space after paragraph
   }
 
   // Add content to the PDF
@@ -386,20 +388,16 @@ const generatePDF = () => {
   const agreementText = document.querySelector('.terms-content').innerText
   const sections = agreementText.split(/(?=\d+\.\s)/)
   sections.forEach(section => {
-    if (section.startsWith('3.2 Obligations:')) {
-      addText(section.split('\n')[0], 12, true)
-      addText('The Recipient agrees to:', 12)
-      const bullets = section.split('\n').slice(2)
-      bullets.forEach(bullet => {
-        if (bullet.trim().startsWith('Not')) {
-          addText(bullet.trim().substring(4), 12, false, true)
-        } else {
-          addText(bullet.trim(), 12, false, true)
-        }
-      })
-    } else {
-      addText(section, 12)
-    }
+    const lines = section.split('\n')
+    lines.forEach((line, index) => {
+      if (index === 0) {
+        addText(line.trim(), 12, true)
+      } else if (line.trim().startsWith('•')) {
+        addText(line.trim().substring(1).trim(), 12, false, true)
+      } else {
+        addText(line.trim(), 12)
+      }
+    })
   })
 
   // Add signature and acceptance date
