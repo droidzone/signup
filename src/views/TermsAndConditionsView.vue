@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="p-4 border rounded shadow-sm">
-          <h2 class="mb-4">MyOPIP Clinic Management Software NDA and Non-Compete</h2>
+          <!-- <h2 class="mb-4">MyOPIP Clinic Management Software NDA and Non-Compete</h2> -->
           <div class="terms-content mb-4" style="max-height: 400px; overflow-y: auto">
             <p>
               This Non-Disclosure Agreement (the "Agreement") is entered into on
@@ -22,9 +22,10 @@
             <h3>1. Purpose</h3>
             <p>
               The purpose of this Agreement is to protect the confidential and proprietary
-              information of the Discloser in relation to the trial access of MyOPIP Clinic Management Software,
-              EazyEMR, or other present or future derivatives of the software (collectively referred to as the "Software")
-              provided to the Recipient for testing purposes.
+              information of the Discloser in relation to the trial access of MyOPIP Clinic
+              Management Software, EazyEMR, or other present or future derivatives of the software
+              (collectively referred to as the "Software") provided to the Recipient for testing
+              purposes.
             </p>
 
             <h3>2. Confidential Information</h3>
@@ -32,8 +33,8 @@
               "Confidential Information" includes, but is not limited to, the Software, its
               features, functionality, user interface, underlying code, algorithms, and any related
               documentation or materials provided by the Discloser. It also includes any information
-              obtained by the Recipient from the use of the software, with or without the Discloser's
-              explicit consent.
+              obtained by the Recipient from the use of the software, with or without the
+              Discloser's explicit consent.
             </p>
 
             <h3>3. Declarations and Obligations of the Recipient</h3>
@@ -42,13 +43,13 @@
             <ul>
               <li>
                 They are not developing, consulting, or otherwise involved in any clinic management
-                software, electronic medical record (EMR) system, or any software with remote
-                functionality similar to MyOPIP.
+                software, electronic medical record (EMR) system, or any software with functionality
+                or intended target market as MyOPIP.
               </li>
               <li>
                 They are not involved as a member of the board of directors, founder, or stakeholder
                 in any related competing software or any other software with functionality similar
-                to, lesser than, or greater than MyOPIP.
+                to, similiar target audience as MyOPIP.
               </li>
               <li>
                 All information provided to the Discloser regarding their background and
@@ -65,9 +66,12 @@
               </li>
               <li>
                 Not copy, reproduce, distribute, disclose, or transfer any Confidential Information
-                to any third party; Not store as screenshots, photos, printout, video, audio files,
-                compressed files, encrypted files, or other digital, manual or other form that can
-                be stored, or transmitted;
+                to any third party;
+              </li>
+              <li>
+                Not store as screenshots, photos, printout, video, audio files, compressed files,
+                encrypted files, or other digital, manual or other form that can be stored, or
+                transmitted;
               </li>
               <li>Not reverse engineer, decompile, or disassemble the Software;</li>
               <li>
@@ -77,7 +81,10 @@
                 Not use the features or functionality of the Software as a basis for developing any
                 new software or enhancing existing software;
               </li>
-              <li>Not share access to the Software with any third party;</li>
+              <li>
+                Not share access to the Software with any third party unless explicitly permitted by
+                an additional license agreement;
+              </li>
               <li>Not share the user credentials with any third party individual or company;</li>
               <li>
                 Not make, keep, or use any screenshots, photos, screen captures, or videos of the
@@ -224,24 +231,32 @@
 
             <h3>9. Amendments</h3>
             <p>
-              The Agreement may at any time be amended, revised or terminated by the Discloser without prior intimation.
+              The Agreement may at any time be amended, revised or terminated by the Discloser
+              without prior intimation.
             </p>
 
             <h3>10. Version</h3>
-            <p>
-              Version: 1.0 ({{ currentDate }})
-            </p>
+            <p>Version: 1.0 ({{ currentDate }})</p>
           </div>
           <div class="mb-3">
             <h3>11. Digital Signature</h3>
             <p>
-              By typing your full name below and clicking "Accept and Sign Up", you acknowledge that you have read, 
-              understood, and agree to be bound by the terms of this Non-Disclosure and Non-Compete Agreement. 
-              This digital signature shall have the same legal effect as a handwritten signature.
+              By typing your full name below and clicking "Accept and Sign Up", you acknowledge that
+              you have read, understood, and agree to be bound by the terms of this Non-Disclosure
+              and Non-Compete Agreement. This digital signature shall have the same legal effect as
+              a handwritten signature.
             </p>
             <div class="form-group mb-3">
-              <label for="digitalSignature" class="form-label">Full Name (Digital Signature):</label>
-              <input type="text" class="form-control" id="digitalSignature" v-model="digitalSignature" required />
+              <label for="digitalSignature" class="form-label"
+                >Full Name (Digital Signature):</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="digitalSignature"
+                v-model="digitalSignature"
+                required
+              />
             </div>
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" v-model="accepted" id="acceptTerms" />
@@ -252,7 +267,11 @@
           </div>
           <div class="d-flex justify-content-between">
             <button @click="goBack" class="btn btn-secondary">Back to Form</button>
-            <button @click="submitForm" class="btn btn-primary" :disabled="!accepted || !digitalSignature">
+            <button
+              @click="submitForm"
+              class="btn btn-primary"
+              :disabled="!accepted || !digitalSignature"
+            >
               Accept and Sign Up
             </button>
           </div>
