@@ -307,7 +307,11 @@ const formatDate = (date) => {
   const day = date.getDate().toString().padStart(2, '0')
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   const year = date.getFullYear()
-  return `${day}-${month}-${year}`
+  const hours = date.getHours()
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  const ampm = hours >= 12 ? 'pm' : 'am'
+  const formattedHours = hours % 12 || 12
+  return `${formattedHours}:${minutes} ${ampm} on ${day}-${month}-${year}`
 }
 
 onMounted(() => {
@@ -405,7 +409,7 @@ const generatePDF = () => {
 
   // Add signature and acceptance date
   addText(`Digital Signature: ${digitalSignature.value}`, 12)
-  addText(`Accepted on: ${formatDate(currentDate)}`, 12)
+  addText(`Accepted at: ${formatDate(currentDate)}`, 12)
 
   // Save the PDF
   doc.save('NDA_Agreement.pdf')
