@@ -88,10 +88,13 @@ const getCSRFToken = () => {
 onMounted(() => {
   axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken()
   axios.defaults.withCredentials = true
+  axios.defaults.headers.post['Content-Type'] = 'application/json'
 })
 
 const submitAdditionalInfo = async () => {
   isLoading.value = true
+  error.value = '' // Clear any previous errors
+
   const additionalInfo = {
     preferredUsername: preferredUsername.value,
     mobileNumber: mobileNumber.value,
@@ -106,16 +109,33 @@ const submitAdditionalInfo = async () => {
     }
     console.log('Data to be submitted:', dataToSubmit)
     console.log(`Posting to ${constants.API_SUBMIT}`)
+
     const response = await axios.post(constants.API_SUBMIT, dataToSubmit)
+    console.log('Full response:', response)
 
     if (response.status === 200) {
       router.push('/signup-success')
     } else {
-      error.value = 'An error occurred during signup. Please try again.'
+      error.value =
+        response.data.error || 'An unexpected error occurred during signup. Please try again.'
     }
   } catch (err) {
     console.error('Error during signup:', err)
-    error.value = 'An error occurred during signup. Please try again.'
+    if (err.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      error.value = err.response.data.error || 'An error occurred during signup. Please try again.'
+      if (err.response.status === 409) {
+        // Handle conflict errors (e.g., duplicate email or username)
+        error.value = err.response.data.error
+      }
+    } else if (err.request) {
+      // The request was made but no response was received
+      error.value = 'No response received from the server. Please try again later.'
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      error.value = 'An error occurred while sending the request. Please try again.'
+    }
   } finally {
     isLoading.value = false
   }

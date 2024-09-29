@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h1 class="text-center mb-4">MyOPIP Clinic Management Software</h1>
+    <h1 class="text-center mb-4">Apply for access to MyOPIP Clinic Management Software</h1>
     <div class="row justify-content-center">
       <div class="col-md-6">
         <form @submit.prevent="proceedToTerms" class="p-4 border rounded shadow-sm">
@@ -43,9 +43,15 @@
           </div>
           <div class="mb-3">
             <label for="affiliations" class="form-label">Affiliations</label>
-            <textarea class="form-control" id="affiliations" v-model="affiliations" required placeholder="Include Companies, Startups, or other organizations where presently working, worked or collaborating with, or otherwise involved, invested, interested in"></textarea>
+            <textarea
+              class="form-control"
+              id="affiliations"
+              v-model="affiliations"
+              required
+              placeholder="Include Companies, Startups, or other organizations where presently working, worked or collaborating with, or otherwise involved, invested, interested in"
+            ></textarea>
           </div>
-          <button type="submit" class="btn btn-primary w-100">Proceed to Terms</button>
+          <button type="submit" class="btn btn-primary w-100">Next step</button>
         </form>
       </div>
     </div>

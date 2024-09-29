@@ -7,7 +7,7 @@
           <!-- <h2 class="mb-4">MyOPIP Clinic Management Software NDA and Non-Compete</h2> -->
           <div class="terms-content mb-4" style="max-height: 400px; overflow-y: auto">
             <p>
-              This Non-Disclosure Agreement (the "Agreement") is entered into on
+              This Non-Disclosure Agreement (the "Agreement") is entered into at
               {{ formatDate(currentDate) }} between:
             </p>
             <p>
