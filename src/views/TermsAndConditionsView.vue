@@ -15,6 +15,9 @@
               >, the owner of MyOPIP clinic management software ("Discloser")
             </p>
             <p>
+              <strong>AND</strong>
+            </p>
+            <p>
               <strong>{{ recipientName }}</strong
               >, residing at {{ recipientAddress }} (Hereafter, called the "Recipient")
             </p>
@@ -235,7 +238,7 @@
               without prior intimation.
             </p>
 
-            <h3>10. Version</h3>
+            <h3>10.Version</h3>
             <p>Version: 1.0 ({{ formatDate(currentDate) }})</p>
           </div>
           <div class="mb-3">
@@ -387,7 +390,7 @@ const generatePDF = () => {
   // Add the full agreement text
   const agreementText = document.querySelector('.terms-content').innerText
   const sections = agreementText.split(/(?=\d+\.\s)/)
-  sections.forEach(section => {
+  sections.forEach((section) => {
     const lines = section.split('\n')
     lines.forEach((line, index) => {
       if (index === 0) {
